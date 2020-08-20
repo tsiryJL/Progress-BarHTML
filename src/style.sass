@@ -1,0 +1,122 @@
+$progress-font-family: sans-serif
+
+$progress-bar-background: #ccc
+$progress-border-radius: 5px
+
+$progress-value-background: #7856ff
+$progress-value-strips: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+$progress-value-strips-size: 10px 10px
+
+$progress-indeterminate-duration: 3s
+
+$progress-tooltip-background: #eee
+$progress-tooltip-color: #7856ff
+$progress-tooltip-border-color: #ccc
+
+.progress-tooltip
+  position: relative
+  padding-top: 50px  
+
+  .progress-tooltip-info    
+    align-items: center
+    background: $progress-tooltip-background
+    border: 1px solid $progress-tooltip-border-color
+    border-radius: 10px
+    box-shadow: 0 0 2px $progress-tooltip-border-color
+    color: $progress-tooltip-color
+    display: inline-flex
+    font-family: $progress-font-family
+    font-weight: bold
+    justify-content: center
+    height: 35px    
+    position: absolute
+    top: 5px
+    left: 0
+    text-align: center
+    transform: translateX(calc(-50% - 5px))
+    width: 55px
+
+    &::before,
+    &::after
+      content: ''
+      display: inline-block
+      border: 7px solid transparent
+      border-top-color: $progress-tooltip-background
+      position: absolute
+      bottom: -13px
+      left: 50%
+      transform: translateX(-50%)
+
+    &::before
+      border-width: 8px
+      border-top-color: $progress-tooltip-border-color
+      bottom: -16px
+      left: 50%
+
+    &::after
+      z-index: 1
+
+.progress
+  -moz-appearance: none
+  -webkit-appearance: none
+  border: none
+  border-radius: $progress-border-radius
+  display: block
+  font-family: $progress-font-family
+  height: 10px
+  overflow: hidden
+  padding: 0
+  position: relative
+  width: 100%  
+  
+  &::-webkit-progress-bar
+    background-color: $progress-bar-background
+  &::-webkit-progress-value
+    border-radius: $progress-border-radius
+    background-color: $progress-value-background
+    background-image: $progress-value-strips
+    background-size: $progress-value-strips-size  
+  &::-moz-progress-bar
+    border-radius: $progress-border-radius
+    background-color: $progress-value-background
+    background-image: $progress-value-strips
+    background-size: $progress-value-strips-size 
+  &::-ms-fill
+    border-radius: $progress-border-radius
+    background-color: $progress-value-background
+    background-image: $progress-value-strips
+    background-size: $progress-value-strips-size 
+    border: none
+  
+  &:indeterminate
+    animation-duration: $progress-indeterminate-duration
+    animation-iteration-count: infinite
+    animation-name: moveIndeterminate
+    animation-timing-function: linear
+    background-color: $progress-bar-background
+    background-image: linear-gradient(to right, $progress-value-background 30%, $progress-bar-background 30%)
+    background-position: top left
+    background-repeat: no-repeat
+    background-size: 150% 150%       
+
+    &::-webkit-progress-value
+      background-image: $progress-value-strips
+      background-size: $progress-value-strips-size 
+    &::-webkit-progress-bar
+      background-color: transparent
+      background-image: $progress-value-strips
+      background-size: $progress-value-strips-size 
+    &::-moz-progress-bar
+      background-color: transparent
+      background-image: $progress-value-strips
+      background-size: $progress-value-strips-size 
+
+  @keyframes moveIndeterminate
+    from
+      background-position: 200% 0
+    to
+      background-position: -200% 0
+      
+.wrapper
+  max-width: 500px
+  margin: 0 auto
